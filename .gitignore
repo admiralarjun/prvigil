@@ -1,0 +1,59 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Frontend (React)
+fe/build/
+fe/.env
+fe/.next/
+fe/.cache/
+fe/coverage/
+fe/public/
+fe/dist/
+fe/tmp/
+fe/.vscode/
+fe/.DS_Store
+
+# Backend (Node.js / Express)
+be/node_modules/
+be/.env
+be/.cache/
+be/coverage/
+be/dist/
+be/tmp/
+be/.vscode/
+be/.DS_Store
+
+# Logs
+*.log
+
+# Environment files
+.env
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Build output
+*.build/
+*.out/
+
+# Misc
+*.swp
+*.swo
+*.swn
+*.tmp
+*.temp
+
+# Git files
+.git/
