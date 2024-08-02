@@ -158,11 +158,11 @@ function App() {
             PRVigil
           </Typography>
           <Typography variant="h6" gutterBottom>
-            Enter the GitHub repository URL to get suggestions and select PRs for analysis.
+            Enter the GitHub repository to get suggestions and select PRs for analysis.
           </Typography>
           {!repoSelected && (
             <TextField
-              label="GitHub Repository URL"
+              label="GitHub Repository"
               variant="outlined"
               value={repo}
               onChange={(e) => setRepo(e.target.value)}
@@ -207,45 +207,48 @@ function App() {
                 <Typography variant="h6" gutterBottom>
                   Pull Requests
                 </Typography>
-                <Grid container spacing={2}>
-                  {prs.map((pr) => (
-                    <Grid item xs={12} sm={6} md={4} key={pr.id}>
-                      <Card
-                        sx={{
-                          position: 'relative',
-                          mb: 1,
-                          border: selectedPrs.some(selected => selected.id === pr.id) ? '2px solid blue' : '1px solid grey',
-                          cursor: 'pointer'
-                        }}
-                        onClick={() => handlePrSelection(pr)}
-                      >
-                        <CardContent>
-                          <Typography variant="h6">
-                            <a href={pr.url} target="_blank" rel="noopener noreferrer">{pr.title}</a>
-                          </Typography>
-                          <Typography variant="body2" color="textSecondary">
-                            {pr.body}
-                          </Typography>
-                          <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
-                            {promptOptions.map(option => (
-                              <Chip
-                                key={option.label}
-                                label={option.label}
-                                icon={<span>{option.icon}</span>}
-                                color={pr.selectedPrompt === option.label ? 'primary' : 'default'}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleChipClick(pr, option.label);
-                                }}
-                                sx={{ cursor: 'pointer' }}
-                              />
-                            ))}
-                          </Stack>
-                        </CardContent>
-                      </Card>
-                    </Grid>
+                <Grid container spacing={2} sx={{ maxHeight: '400px', overflowY: 'auto' }}>
+  {prs.map((pr) => (
+    <Grid item xs={12} sm={6} md={4} key={pr.id}>
+            <Card
+              sx={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                border: selectedPrs.some(selected => selected.id === pr.id) ? '2px solid blue' : '1px solid grey',
+                cursor: 'pointer',
+                overflow: 'hidden',
+              }}
+              onClick={() => handlePrSelection(pr)}
+            >
+              <CardContent sx={{ flexGrow: 1 }}>
+                <Typography variant="h6" noWrap>
+                  <a href={pr.url} target="_blank" rel="noopener noreferrer">{pr.title}</a>
+                </Typography>
+                <Typography variant="body2" color="textSecondary" noWrap>
+                  {pr.body}
+                </Typography>
+                <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
+                  {promptOptions.map(option => (
+                    <Chip
+                      key={option.label}
+                      label={option.label}
+                      icon={<span>{option.icon}</span>}
+                      color={pr.selectedPrompt === option.label ? 'primary' : 'default'}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleChipClick(pr, option.label);
+                      }}
+                      sx={{ cursor: 'pointer' }}
+                    />
                   ))}
-                </Grid>
+                </Stack>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+
               </Box>
               <Button
                 variant="contained"
